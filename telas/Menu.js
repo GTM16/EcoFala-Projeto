@@ -4,7 +4,7 @@ import globalStyles from '../Styles';
 
 export default function MainScreen({ navigation, route }) {
   // Recebe os dados do paciente selecionado da tela de Pacientes
-  const pacienteSelecionado = route.params?.pacienteSelecionado;
+  const { selectedPatient } = route.params;
 
   return (
     <View style={globalStyles.menuContainer}>
@@ -21,7 +21,7 @@ export default function MainScreen({ navigation, route }) {
       {/* Botão para mostrar cenários */}
       <TouchableOpacity 
         style={globalStyles.menuButton} 
-        onPress={() => navigation.navigate('GerarCenario')}  
+        onPress={() => navigation.navigate('GerarCenario', { paciente: selectedPatient })}  
       >
         <Text style={globalStyles.menuButtonText}>GERAR CENÁRIO</Text>
       </TouchableOpacity>
@@ -29,7 +29,7 @@ export default function MainScreen({ navigation, route }) {
       {/* Botão para Visualizar Relatórios */}
       <TouchableOpacity 
         style={globalStyles.menuButton} 
-        onPress={() => navigation.navigate('Relatorio')}  
+        onPress={() => navigation.navigate('Relatorio', { paciente: selectedPatient })}  
       >
         <Text style={globalStyles.menuButtonText}>VISUALIZAR RELATÓRIOS</Text>
       </TouchableOpacity>
@@ -37,7 +37,7 @@ export default function MainScreen({ navigation, route }) {
       {/* Botão para Editar Cadastro (passa o paciente selecionado para a tela de Cadastro) */}
       <TouchableOpacity 
         style={globalStyles.menuButton} 
-        onPress={() => navigation.navigate('Cadastro', { pacienteSelecionado })}  
+        onPress={() => navigation.navigate('Cadastro', { paciente: selectedPatient })}  
       >
         <Text style={globalStyles.menuButtonText}>EDITAR CADASTRO</Text>
       </TouchableOpacity>

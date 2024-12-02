@@ -8,7 +8,8 @@ const firebaseConfig = {
     storageBucket: "ecofala-b1543.firebasestorage.app",
     messagingSenderId: "909059471957",
     appId: "1:909059471957:web:73310d6022b2ea423e72dc",
-    measurementId: "G-2VN48NN0J4"
+    measurementId: "G-2VN48NN0J4",
+    databaseURL: "https://ecofala-b1543-default-rtdb.firebaseio.com",
   };
 
 export function initFirebase(){

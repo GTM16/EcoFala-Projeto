@@ -7,38 +7,12 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  // Simulação de um "banco de dados" local de usuários
-  const usuarios = [
-    { email: 'gabriel', senha: '123456' },
-    { email: 'usuario2@example.com', senha: 'senha123' },
-  ];
-
   const handleLogin = () => {
     // Verifica se os campos estão preenchidos
     if (!email || !senha) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos!');
       return;
     }
-
-    // Verifica se a senha tem no mínimo 6 caracteres
-    /*if (senha.length < 6) {
-      Alert.alert('Erro', 'A senha deve ter no mínimo 6 caracteres!');
-      return;
-    }
-
-    // Busca o usuário no array de usuários
-    const usuarioEncontrado = usuarios.find(
-      (usuario) => usuario.email === email && usuario.senha === senha
-    );
-
-    if (usuarioEncontrado) {
-      // Caso o login seja bem-sucedido
-      Alert.alert('Sucesso', 'Login realizado com sucesso!');
-      navigation.navigate('Pacientes'); // Redireciona para a tela "Pacientes"
-    } else {
-      // Caso o e-mail ou a senha estejam incorretos
-      Alert.alert('Erro', 'E-mail ou senha incorretos!');
-    }*/
 
       const auth = getAuth();
       signInWithEmailAndPassword(auth, email, senha)
@@ -54,9 +28,6 @@ export default function Login({ navigation }) {
           const errorMessage = error.message;
           Alert.alert('Erro', 'E-mail ou senha incorretos!');
         });
-
-
-
 
   };
 
@@ -99,10 +70,6 @@ export default function Login({ navigation }) {
 
       {/* Links adicionais */}
       <View style={globalStyles.linksContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-          <Text style={globalStyles.linkText}>Cadastre-se</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => navigation.navigate('RedefinirSenha')}>
           <Text style={globalStyles.linkText}>Esqueceu a senha?</Text>
         </TouchableOpacity>
