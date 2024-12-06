@@ -45,9 +45,7 @@
 1. Clone este repositório:
    ```bash
    git clone https://github.com/GTM16/EcoFala-Projeto.git
-
    ```
-   
    ```bash
    cd ecofala
    ```

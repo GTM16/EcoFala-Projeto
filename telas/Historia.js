@@ -1,49 +1,52 @@
 import React, { useState } from 'react';
-import { Text, SafeAreaView, Image, Button, View, Alert, ScrollView } from 'react-native';
+import { View, Text, Image, Alert, TouchableOpacity } from 'react-native';
 import globalStyles from '../Styles';
 
 export default function Historia({ route, navigation }) {
-  const { historia } = route.params; // Recebe a história selecionada
-  const [currentPart, setCurrentPart] = useState(0);
-  const [isCorrect, setIsCorrect] = useState(null);
+  const { historia } = route.params || {}; // Acessa o objeto historia corretamente
+  const [etapaAtual, setEtapaAtual] = useState(0);
 
-  const handleChoice = (choice) => {
-    if (choice === 'correct') {
-      setIsCorrect(true);
-      if (currentPart < historia.partes.length - 1) {
-        setCurrentPart(currentPart + 1);
+  if (!historia || !historia.etapas || historia.etapas.length === 0) {
+    return (
+      <View style={globalStyles.historiaContainer}>
+        <Text style={{ color: 'red', fontSize: 16 }}>História inválida ou etapas não encontradas.</Text>
+      </View>
+    );
+  }
+
+  const etapa = historia.etapas[etapaAtual];
+
+  const handleEscolha = (escolha) => {
+    if (escolha === etapa.opcoes.correta) {
+      if (etapaAtual + 1 < historia.etapas.length) {
+        setEtapaAtual(etapaAtual + 1);
       } else {
-        Alert.alert('Fim da História', 'Você completou a história!');
-        navigation.goBack(); // Retorna à lista de cenários
+        Alert.alert('Parabéns!', 'Você completou a história!');
+        navigation.goBack();
       }
     } else {
-      setIsCorrect(false);
-      Alert.alert('Escolha Incorreta', 'Tente novamente!');
+      Alert.alert('Errado', 'Tente novamente!');
     }
   };
 
   return (
-    <SafeAreaView style={globalStyles.historiaContainer}>
-      <ScrollView contentContainerStyle={globalStyles.scrollContainer}>
-        <Text style={globalStyles.historiaParagraph}>{historia.partes[currentPart].text}</Text>
-        <Image
-          source={{ uri: historia.partes[currentPart].image }}
-          style={globalStyles.historiaImage}
-        />
-
-        <View style={globalStyles.historiaButtonContainer}>
-          <Button
-            title={historia.partes[currentPart].choices.correct}
-            onPress={() => handleChoice('correct')}
-            color="#28A745"
-          />
-          <Button
-            title={historia.partes[currentPart].choices.incorrect}
-            onPress={() => handleChoice('incorrect')}
-            color="#FF5733"
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={globalStyles.historiaContainer}>
+      <Image source={{ uri: historia.imagem }} style={globalStyles.historiaImagem} />
+      <Text style={globalStyles.historiaTexto}>{etapa.texto}</Text>
+      <View style={globalStyles.opcoesContainer}>
+        <TouchableOpacity
+          style={globalStyles.opcaoButton}
+          onPress={() => handleEscolha(etapa.opcoes.correta)}
+        >
+          <Text style={globalStyles.opcaoTexto}>{etapa.opcoes.correta}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={globalStyles.opcaoButton}
+          onPress={() => handleEscolha(etapa.opcoes.incorreta)}
+        >
+          <Text style={globalStyles.opcaoTexto}>{etapa.opcoes.incorreta}</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
