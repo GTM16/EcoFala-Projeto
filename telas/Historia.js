@@ -3,7 +3,7 @@ import { View, Text, Image, Alert, TouchableOpacity } from 'react-native';
 import globalStyles from '../Styles';
 
 export default function Historia({ route, navigation }) {
-  const { historia } = route.params || {}; // Previne erros se `route.params` for undefined
+  const { historia } = route.params || {}; // Acessa o objeto historia corretamente
   const [etapaAtual, setEtapaAtual] = useState(0);
 
   if (!historia || !historia.etapas || historia.etapas.length === 0) {
