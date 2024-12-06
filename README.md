@@ -54,7 +54,7 @@
 2. Execute ```npm install``` para instalar as dependências.
 3. Inicie o projeto com ```npx expo start```.
 
-## Integrantes
+## 🧠 Integrantes
 - [Gabriel Tarciso Macieiski](https://github.com/GTM16).
 - [Maria Eduarda Monteiro Marcos](https://github.com/Guna-ME).
 - [Maria Luíza Arend Da Silva]()
